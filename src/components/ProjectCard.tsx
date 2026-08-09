@@ -1,10 +1,13 @@
 import type { Project } from "../data/projects";
 
+const STATUS_LABEL: Record<Project["status"], string> = {
+  featured: "Featured",
+  building: "In Development",
+};
+
 export default function ProjectCard({ project }: { project: Project }) {
   return (
-    <article
-      className="group relative flex flex-col justify-between rounded-2xl border border-border bg-surface p-7 h-full overflow-hidden transition-all duration-300 hover:border-cosmic-dim hover:-translate-y-1 hover:shadow-[0_12px_32px_-8px_var(--color-cosmic-soft)]"
-    >
+    <article className="group relative flex flex-col justify-between rounded-2xl border border-border bg-surface p-7 h-full overflow-hidden transition-all duration-300 hover:border-cosmic-dim hover:-translate-y-1 hover:shadow-[0_12px_32px_-8px_var(--color-cosmic-soft)]">
       {/* faint celestial corner accent — a single quiet point of light, not decoration for its own sake */}
       <span
         className="absolute top-5 right-5 w-1 h-1 rounded-full bg-cosmic opacity-40 group-hover:opacity-90 transition-opacity"
@@ -16,7 +19,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           <h3 className="font-display font-semibold text-xl text-text">
             {project.name}
           </h3>
-          <span className="eyebrow whitespace-nowrap pt-1">Featured</span>
+          <span className="eyebrow whitespace-nowrap pt-1">{STATUS_LABEL[project.status]}</span>
         </div>
 
         <p className="text-sm text-text-muted font-mono mb-4">{project.tagline}</p>
@@ -43,6 +46,7 @@ export default function ProjectCard({ project }: { project: Project }) {
             href={project.githubUrl}
             target="_blank"
             rel="noreferrer"
+            aria-label={`View ${project.name} source code on GitHub`}
             className="text-sm font-medium text-text-muted hover:text-text transition-colors"
           >
             Code ↗
@@ -53,6 +57,7 @@ export default function ProjectCard({ project }: { project: Project }) {
             href={project.liveUrl}
             target="_blank"
             rel="noreferrer"
+            aria-label={`Open ${project.name} live demo`}
             className="text-sm font-medium text-text hover:text-accent transition-colors"
           >
             Live Demo ↗

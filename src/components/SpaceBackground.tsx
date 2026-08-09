@@ -50,11 +50,14 @@ export default function SpaceBackground() {
         }}
       />
 
-      {/* a handful of individually twinkling stars for organic life */}
+      {/* a handful of individually twinkling stars for organic life —
+          half are hidden below `sm` to keep mobile particle count low */}
       {TWINKLE_STARS.map((s, i) => (
         <span
           key={i}
-          className="absolute rounded-full bg-cosmic motion-safe:animate-[star-breathe_var(--dur)_ease-in-out_infinite]"
+          className={`absolute rounded-full bg-cosmic motion-safe:animate-[star-breathe_var(--dur)_ease-in-out_infinite] ${
+            i % 2 !== 0 ? "hidden sm:block" : ""
+          }`}
           style={
             {
               top: s.top,
